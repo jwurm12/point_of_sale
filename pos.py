@@ -7,6 +7,7 @@ current_app = "main"
 current_user = None
 all_users = []
 inventory = []
+transactions = []
 
 #Build test data
 all_users.append(User("admin", "1234", 3))
@@ -83,7 +84,12 @@ while True:
         os.system(clear)
         inventory_mgmt_input = int(inventory_mgmt())
         if inventory_mgmt_input == 1:
-            pass
+            inv_return = add_inventory(inventory)
+            if inv_return:
+                if len(inv_return) == 4:
+                    inventory.append(Item(inv_return[0], inv_return[1], inv_return[2], inv_return[3]))
+                else:
+                    inventory[inv_return[0]].quantity += inv_return[1]
         elif inventory_mgmt_input == 2:
             pass
         elif inventory_mgmt_input == 3:
