@@ -1,12 +1,20 @@
 import os
 from pos_user import *
+from pos_inventory import *
 
 clear = "cls"
 current_app = "main"
 current_user = None
 all_users = []
+inventory = []
 
+#Build test data
 all_users.append(User("admin", "1234", 3))
+inventory.append(Item("0001", "Skull Shirt", 5, 15.99))
+inventory.append(Item("0002", "Bro Shirt", 3, 12.99))
+inventory.append(Item("0003", "Tiger Board Short", 6, 19.99))
+inventory.append(Item("0004", "Khaki Cargo Short", 8, 21.99))
+inventory.append(Item("0005", "Skull Sticker", 25, 1.99))
 
 def login(u_input, p_input):
         found = False
@@ -24,7 +32,7 @@ def main_menu():
     os.system(clear)
     print("What would you like to do?\n")
     print("1 - Create a Sell")
-    print("2 - Add Inventory")
+    print("2 - Manage Inventory")
     print("3 - Audit Transactions")
     print("4 - Manage Users")
     print("5 - Logout")
@@ -34,16 +42,18 @@ def inventory_mgmt():
     print("What would you like to do?\n")
     print("1 - Add Inventory")
     print("2 - Remove Inventory")
-    print("3 - Main Menu")
-    return input("\nChoose an option, 1-3: ")
+    print("3 - List Inventory")
+    print("4 - Main Menu")
+    return input("\nChoose an option, 1-4: ")
 
 def user_mgmt():
     print("What would you like to do?\n")
     print("1 - Create a User")
     print("2 - Remove a User")
     print("3 - Edit a User")
-    print("4 - Main Menu")
-    return input("\nChoose an option, 1-4: ")
+    print("4 - List Users")
+    print("5 - Main Menu")
+    return input("\nChoose an option, 1-5: ")
 
 while True:
     if current_user == None:
@@ -77,16 +87,22 @@ while True:
         elif inventory_mgmt_input == 2:
             pass
         elif inventory_mgmt_input == 3:
+            list_inventory(inventory)
+        elif inventory_mgmt_input == 4:
             current_app = "main"
 
     if current_app == "user":
         os.system(clear)
         users_mgmt_input = int(user_mgmt())
         if users_mgmt_input == 1:
-            pass
+            new_user = create_user(all_users)
+            if new_user:
+                all_users.append(User(new_user[0], new_user[1], new_user[2]))
         elif users_mgmt_input == 2:
             pass
         elif users_mgmt_input == 3:
             pass
         elif users_mgmt_input == 4:
+            list_users(all_users)
+        elif users_mgmt_input == 5:
             current_app = "main"
