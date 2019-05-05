@@ -62,53 +62,53 @@ while True:
         u_input = input("Username: ")
         p_input = input("Password: ")
         found = login(u_input, p_input)
-
-    if current_app == "main":
-        menu_option = int(main_menu())
-        if menu_option == 1:
-            pass
-        elif menu_option == 2:
-            if current_user.role in range(2,4):
-                current_app = "inventory"
-            else:
-                print("\nYou do not have access to that.")
-        elif menu_option == 3:
-            pass
-        elif menu_option == 4:
-            current_app = "user"
-        elif menu_option == 5:
-            os.system(clear)
-            break
-
-    if current_app == "inventory":
-        os.system(clear)
-        inventory_mgmt_input = int(inventory_mgmt())
-        if inventory_mgmt_input == 1:
-            inv_return = add_inventory(inventory)
-            if inv_return:
-                if len(inv_return) == 4:
-                    inventory.append(Item(inv_return[0], inv_return[1], inv_return[2], inv_return[3]))
+    else:
+        if current_app == "main":
+            menu_option = int(main_menu())
+            if menu_option == 1:
+                pass
+            elif menu_option == 2:
+                if current_user.role in range(2,4):
+                    current_app = "inventory"
                 else:
-                    inventory[inv_return[0]].quantity += inv_return[1]
-        elif inventory_mgmt_input == 2:
-            pass
-        elif inventory_mgmt_input == 3:
-            list_inventory(inventory)
-        elif inventory_mgmt_input == 4:
-            current_app = "main"
+                    print("\nYou do not have access to that.")
+            elif menu_option == 3:
+                pass
+            elif menu_option == 4:
+                current_app = "user"
+            elif menu_option == 5:
+                os.system(clear)
+                break
 
-    if current_app == "user":
-        os.system(clear)
-        users_mgmt_input = int(user_mgmt())
-        if users_mgmt_input == 1:
-            new_user = create_user(all_users)
-            if new_user:
-                all_users.append(User(new_user[0], new_user[1], new_user[2]))
-        elif users_mgmt_input == 2:
-            pass
-        elif users_mgmt_input == 3:
-            pass
-        elif users_mgmt_input == 4:
-            list_users(all_users)
-        elif users_mgmt_input == 5:
-            current_app = "main"
+        if current_app == "inventory":
+            os.system(clear)
+            inventory_mgmt_input = int(inventory_mgmt())
+            if inventory_mgmt_input == 1:
+                inv_return = add_inventory(inventory)
+                if inv_return:
+                    if len(inv_return) == 4:
+                        inventory.append(Item(inv_return[0], inv_return[1], inv_return[2], inv_return[3]))
+                    else:
+                        inventory[inv_return[0]].quantity += inv_return[1]
+            elif inventory_mgmt_input == 2:
+                pass
+            elif inventory_mgmt_input == 3:
+                list_inventory(inventory)
+            elif inventory_mgmt_input == 4:
+                current_app = "main"
+
+        if current_app == "user":
+            os.system(clear)
+            users_mgmt_input = int(user_mgmt())
+            if users_mgmt_input == 1:
+                new_user = create_user(all_users)
+                if new_user:
+                    all_users.append(User(new_user[0], new_user[1], new_user[2]))
+            elif users_mgmt_input == 2:
+                pass
+            elif users_mgmt_input == 3:
+                pass
+            elif users_mgmt_input == 4:
+                list_users(all_users)
+            elif users_mgmt_input == 5:
+                current_app = "main"
